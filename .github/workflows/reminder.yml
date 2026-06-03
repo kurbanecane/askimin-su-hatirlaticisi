@@ -1,0 +1,26 @@
+name: Su Hatirlatici
+
+on:
+  schedule:
+    # Saatler UTC cinsindendir. Türkiye = UTC+3 (yaz/kış sabit).
+    # Aşağıdaki UTC saatleri Türkiye saatiyle şunlara denk gelir:
+    # 06→09:00, 08→11:00, 10→13:00, 12→15:00, 14→17:00,
+    # 16→19:00, 18→21:00, 20→23:00, 21→00:00 (gece yarısı)
+    # ✏️ DEĞİŞTİR: saatleri değiştirmek istersen Türkiye saatinden 3 saat çıkarıp buraya yaz.
+    - cron: "0 6,8,10,12,14,16,18,20,21 * * *"
+  workflow_dispatch:   # elle test için "Run workflow" butonu
+
+jobs:
+  hatirlat:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - run: npm install
+      - run: node send.js
+        env:
+          VAPID_PUBLIC: ${{ secrets.VAPID_PUBLIC }}
+          VAPID_PRIVATE: ${{ secrets.VAPID_PRIVATE }}
+          VAPID_MAIL: ${{ secrets.VAPID_MAIL }}
