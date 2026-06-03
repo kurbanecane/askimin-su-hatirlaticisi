@@ -44,9 +44,15 @@ const m = MESAJLAR[Math.floor(Math.random() * MESAJLAR.length)];
 const payload = JSON.stringify({ ...m, image: FOTO_URL || undefined });
 
 try {
-  await webpush.sendNotification(sub, payload);
+  await webpush.sendNotification(sub, payload, {
+    urgency: "high",   // Apple'a "bunu hemen ilet" der; gecikmeyi azaltır
+    TTL: 1800          // 30 dk içinde iletilemezse düşsün (geç gelmesindense hiç gelmesin)
+  });
   console.log("Bildirim gönderildi:", m.body);
 } catch (err) {
   console.error("Gönderim hatası:", err.statusCode, err.body || err.message);
+  if (err.statusCode === 410 || err.statusCode === 404) {
+    console.error("⚠️ Abonelik geçersiz. Uygulamadan YENİ abonelik kopyalayıp subscription.json'a yapıştır.");
+  }
   process.exit(1);
 }
