@@ -15,7 +15,7 @@ self.addEventListener("push", event => {
     badge: "icons/icon-192.png",
     image: data.image || undefined,   // SENİN su içerken fotoğrafın (büyük görsel) buraya gelebilir
     vibrate: [120, 60, 120],
-    tag: "su-hatirlatma",
+    tag: "askimin-su-hatirlaticisi",
     renotify: true,
     data: { url: "./" }
   };
