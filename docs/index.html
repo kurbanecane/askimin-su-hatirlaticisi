@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="theme-color" content="#0d0f14" />
+<link rel="manifest" href="manifest.json" />
+<link rel="apple-touch-icon" href="icons/icon-192.png" />
+<title>Su Vakti 💧</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================================
+   🎨 RENKLER — tüm paleti buradan değiştirebilirsin (KOYU/DARK tema)
+   ============================================================ */
+:root{
+  --bg1:#0b0d12; --bg2:#160e15;
+  --su:#2f93bd; --su-koyu:#1f6e90; --su-parlak:#54b6d6;
+  --kirmizi:#d6325c; --kirmizi-koyu:#a01b41; --kalp:#e23e6d;
+  --yazi:#aeb8c2; --yazi-ak:#f1f4f7;
+  --kart:rgba(255,255,255,0.05); --kart-cizgi:rgba(255,255,255,0.10);
+  --golge:0 16px 40px rgba(0,0,0,0.55);
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html,body{height:100%;}
+body{
+  font-family:'Nunito',sans-serif;color:var(--yazi);
+  background:
+    radial-gradient(circle at 18% 8%, rgba(214,50,92,0.22) 0%, transparent 42%),
+    radial-gradient(circle at 85% 14%, rgba(47,147,189,0.20) 0%, transparent 40%),
+    radial-gradient(circle at 50% 108%, rgba(160,27,65,0.20) 0%, transparent 55%),
+    linear-gradient(165deg, var(--bg2) 0%, var(--bg1) 60%);
+  min-height:100vh;display:flex;flex-direction:column;align-items:center;
+  padding:max(22px,env(safe-area-inset-top)) 20px max(28px,env(safe-area-inset-bottom));
+  overflow-x:hidden;
+}
+.dekor{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden;}
+.dekor span{position:absolute;font-size:22px;opacity:.35;animation:yuz 9s ease-in-out infinite;}
+@keyframes yuz{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-18px) rotate(8deg)}}
+.wrap{position:relative;z-index:1;width:100%;max-width:420px;display:flex;flex-direction:column;align-items:center;gap:22px;}
+.selam{text-align:center;margin-top:4px;}
+.foto-sec{position:relative;width:88px;height:88px;margin:0 auto 10px;cursor:pointer;}
+.avatar{
+  width:88px;height:88px;border-radius:50%;
+  border:3px solid rgba(255,255,255,0.12);box-shadow:var(--golge);
+  background:linear-gradient(135deg,var(--kirmizi-koyu),var(--su-koyu));
+  background-size:cover;background-position:center;
+  display:flex;align-items:center;justify-content:center;font-size:38px;
+}
+.foto-sec .kalem{position:absolute;right:-2px;bottom:-2px;width:28px;height:28px;border-radius:50%;
+  background:var(--kirmizi);display:flex;align-items:center;justify-content:center;font-size:14px;
+  border:2px solid var(--bg1);}
+.selam h1{font-family:'Fredoka',sans-serif;font-weight:600;font-size:26px;color:var(--yazi-ak);line-height:1.15;}
+.selam p{font-size:15px;margin-top:4px;color:var(--yazi);opacity:.8;}
+.daire{position:relative;width:240px;height:240px;}
+.daire svg{transform:rotate(-90deg);}
+.daire .track{fill:none;stroke:rgba(255,255,255,.08);stroke-width:18;}
+.daire .ilerleme{fill:none;stroke:var(--su-parlak);stroke-width:18;stroke-linecap:round;
+  filter:drop-shadow(0 0 6px rgba(84,182,214,.55));
+  transition:stroke-dashoffset .8s cubic-bezier(.34,1.56,.64,1);}
+.daire .ic{position:absolute;inset:26px;border-radius:50%;
+  background:radial-gradient(circle at 50% 30%, #1b212b, #0e1218);
+  box-shadow:inset 0 6px 22px rgba(0,0,0,.6), 0 0 0 1px rgba(255,255,255,.04);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;}
+.dalga{position:absolute;left:-50%;bottom:0;width:200%;height:0%;
+  background:linear-gradient(180deg,rgba(47,147,189,.55),rgba(31,110,144,.9));
+  transition:height 1s ease;border-radius:42% 42% 0 0;}
+.dalga::before{content:"";position:absolute;top:-12px;left:0;width:100%;height:24px;
+  background:rgba(84,182,214,.45);border-radius:50%;animation:salin 4s linear infinite;}
+@keyframes salin{0%{transform:translateX(0)}100%{transform:translateX(-25%)}}
+.daire .ic .sayilar{position:relative;z-index:2;text-align:center;}
+.daire .ic .buyuk{font-family:'Fredoka',sans-serif;font-weight:700;font-size:44px;color:var(--yazi-ak);line-height:1;}
+.daire .ic .buyuk .bol{font-size:22px;opacity:.4;}
+.daire .ic .alt{font-size:14px;font-weight:700;color:var(--su-parlak);opacity:.85;margin-top:2px;}
+.icbtn{border:none;cursor:pointer;font-family:'Fredoka',sans-serif;font-weight:600;
+  background:linear-gradient(135deg,var(--su),var(--su-koyu));color:#fff;
+  font-size:20px;padding:16px 34px;border-radius:40px;box-shadow:0 12px 26px rgba(31,110,144,.45);
+  display:flex;align-items:center;gap:10px;transition:transform .15s;}
+.icbtn:active{transform:scale(.94);}
+.minik{display:flex;gap:10px;}
+.minik button{border:1px solid var(--kart-cizgi);background:var(--kart);color:var(--yazi);font-weight:700;
+  font-family:'Nunito';font-size:14px;padding:10px 18px;border-radius:30px;cursor:pointer;}
+.minik button:active{transform:scale(.94);}
+.not{background:var(--kart);backdrop-filter:blur(8px);border:1px solid var(--kart-cizgi);
+  border-radius:28px;padding:18px 20px;width:100%;box-shadow:var(--golge);display:flex;gap:14px;align-items:center;}
+.not .foto{width:60px;height:60px;border-radius:18px;flex-shrink:0;cursor:pointer;position:relative;
+  background:linear-gradient(135deg,var(--kirmizi-koyu),var(--su-koyu));background-size:cover;background-position:center;
+  display:flex;align-items:center;justify-content:center;font-size:30px;box-shadow:0 6px 14px rgba(0,0,0,.45);}
+.not .foto .kalem{position:absolute;right:-4px;bottom:-4px;width:22px;height:22px;border-radius:50%;
+  background:var(--kirmizi);display:flex;align-items:center;justify-content:center;font-size:11px;border:2px solid var(--bg1);}
+.not p{font-size:15px;font-weight:600;line-height:1.35;color:var(--yazi-ak);}
+.not p b{color:var(--kalp);}
+.kurulum{width:100%;background:var(--kart);border:1px dashed var(--su);border-radius:24px;padding:16px;text-align:center;font-size:13px;color:var(--yazi);}
+.kurulum strong{color:var(--yazi-ak);}
+.kurulum.ok{border-color:#3fae7a;background:rgba(63,174,122,0.10);}
+.kurulum button{margin-top:10px;border:none;background:linear-gradient(135deg,var(--kirmizi),var(--kirmizi-koyu));color:#fff;
+  font-family:'Fredoka';font-weight:600;font-size:15px;padding:11px 22px;border-radius:30px;cursor:pointer;}
+.kurulum small{display:block;margin-top:8px;opacity:.65;line-height:1.4;}
+.kod{margin-top:10px;font-family:monospace;font-size:10px;background:rgba(0,0,0,.4);color:#9fe0ff;border-radius:12px;
+  padding:10px;word-break:break-all;max-height:90px;overflow:auto;text-align:left;display:none;}
+.dipnot{font-size:12px;opacity:.55;text-align:center;line-height:1.5;}
+.gizli-input{display:none;}
+.kalp-patlama{position:fixed;font-size:30px;pointer-events:none;z-index:50;animation:patla 1s ease-out forwards;}
+@keyframes patla{0%{transform:translateY(0) scale(.5);opacity:1}100%{transform:translateY(-90px) scale(1.4);opacity:0}}
+</style>
+</head>
+<body>
+<div class="dekor" id="dekor"></div>
+<div class="wrap">
+
+  <div class="selam">
+    <!-- 📷 Fotoğraflar TELEFONDA saklanır, internete yüklenmez.
+         Aşağıdaki halkaya dokununca telefondan fotoğraf seçilir (sevgilinin fotoğrafı). -->
+    <div class="foto-sec" id="avatarSec">
+      <div class="avatar" id="avatar">❤️</div>
+      <div class="kalem">📷</div>
+    </div>
+    <input type="file" accept="image/*" class="gizli-input" id="avatarInput">
+    <h1 id="baslik">Günaydınnn!</h1>
+    <p id="altyazi">Bugün su içmeyi unutmaa !! 💧</p>
+  </div>
+
+  <div class="daire">
+    <svg width="240" height="240" viewBox="0 0 240 240">
+      <circle class="track" cx="120" cy="120" r="100"></circle>
+      <circle class="ilerleme" id="ring" cx="120" cy="120" r="100" stroke-dasharray="628" stroke-dashoffset="628"></circle>
+    </svg>
+    <div class="ic">
+      <div class="dalga" id="dalga"></div>
+      <div class="sayilar">
+        <div class="buyuk"><span id="kereSayi">0</span><span class="bol">/<span id="hedefSayi">8</span></span></div>
+        <div class="alt">kere su içtim</div>
+      </div>
+    </div>
+  </div>
+
+  <button class="icbtn" id="icBtn">💧 Suyumu içtim</button>
+  <div class="minik">
+    <button id="geriBtn">↩︎ Geri al</button>
+    <button id="sifirBtn">🔄 Yeni gün</button>
+  </div>
+
+  <div class="not">
+    <!-- 📷 Senin su içerken fotoğrafın — buna dokununca telefondan seçilir, telefonda kalır. -->
+    <div class="foto" id="benFoto">🥤<div class="kalem">📷</div></div>
+    <input type="file" accept="image/*" class="gizli-input" id="benInput">
+    <p id="notYazi">Her su içtiğinde beni bir daha hatırla aşkıımm 💙</p>
+  </div>
+
+  <div class="kurulum" id="kurulum">
+    <strong>🔔 Hatırlatmaları aç</strong>
+    <div>Telefon kilitliyken bile su hatırlatması alman için izin ver.</div>
+    <button id="izinBtn">Bildirimlere izin ver</button>
+    <small id="kurulumNot">Not: Bu sayfayı Safari'de açıp <b>Paylaş → Ana Ekrana Ekle</b> dedikten sonra açarsan bildirimler çalışır.</small>
+    <div class="kod" id="aboneKod"></div>
+  </div>
+
+  <p class="dipnot">Seni seviyorum aşkım, sağlığına dikkat et 🤍</p>
+</div>
+
+<script>
+/* ============================================================
+   ⚙️  AYARLAR — istediğin her şeyi buradan değiştir
+   ============================================================ */
+const AYARLAR = {
+  hedefKere: 8,              // ✏️ Günlük hedef (kaç kere su içsin)
+  isim: "Aşkımm",             // ✏️ Sevgilinin adı
+  selamlar: {                // ✏️ Saate göre selamlamalar
+    sabah:"Günaydınnn {isim} ☀️", oglen:"İyi günlerrr {isim} 🌼",
+    aksam:"İyi akşamlarrr {isim} 🌙", gece:"Geç oldu {isim}, son bir yudumm 💤"
+  },
+ notlar: [
+    "AŞKIIMM SU İİÇÇÇ 💙",
+    "Bir yudum su iç de güzelliğin daha çok gözümü alsın ✨",
+    "Susuz kalma güzelim ben buradayım 🤍",
+    "Su iç, sağlıklı kal, bana lazımsın herşeyim💕",
+    "Az kaldı bitanem, bugünkü hedefe çok yaklaştın! 🎀"
+  ],
+  vapidPublicKey: "BURAYA_VAPID_PUBLIC_KEY_GELECEK"  // ✏️ README adım 3
+};
+
+/* ============== çalışma mantığı (değiştirmen gerekmez) ============== */
+const RING_CEVRE=628; let kere=0; let hedef=AYARLAR.hedefKere;
+const $=id=>document.getElementById(id);
+
+(function(){const items=["💧","❤️","🩷","💗","🩵","💙"];const d=$("dekor");
+  for(let i=0;i<9;i++){const s=document.createElement("span");s.textContent=items[i%items.length];
+  s.style.left=Math.random()*100+"%";s.style.top=Math.random()*100+"%";
+  s.style.animationDelay=(Math.random()*5)+"s";s.style.fontSize=(16+Math.random()*16)+"px";d.appendChild(s);}})();
+
+function bugunKey(){const t=new Date();return "su_"+t.getFullYear()+"_"+(t.getMonth()+1)+"_"+t.getDate();}
+function yukle(){hedef=AYARLAR.hedefKere;$("hedefSayi").textContent=hedef;
+  const v=localStorage.getItem(bugunKey());kere=v?parseInt(v):0;guncelle(false);selamGuncelle();notGuncelle();fotolariYukle();}
+function kaydet(){localStorage.setItem(bugunKey(),kere);}
+function guncelle(){kere=Math.max(0,Math.min(kere,hedef*2));$("kereSayi").textContent=kere;
+  const o=Math.min(kere/hedef,1);$("ring").style.strokeDashoffset=RING_CEVRE*(1-o);$("dalga").style.height=(o*100)+"%";kaydet();}
+function selamGuncelle(){const h=new Date().getHours();let s=AYARLAR.selamlar.gece;
+  if(h>=5&&h<12)s=AYARLAR.selamlar.sabah;else if(h>=12&&h<18)s=AYARLAR.selamlar.oglen;else if(h>=18&&h<23)s=AYARLAR.selamlar.aksam;
+  $("baslik").textContent=s.replace("{isim}",AYARLAR.isim);}
+function notGuncelle(){$("notYazi").textContent=AYARLAR.notlar[Math.floor(Math.random()*AYARLAR.notlar.length)];}
+function kalpEfekti(x,y){const k=document.createElement("div");k.className="kalp-patlama";
+  k.textContent=["💧","❤️","🩷","💗"][Math.floor(Math.random()*4)];k.style.left=(x-15)+"px";k.style.top=(y-15)+"px";
+  document.body.appendChild(k);setTimeout(()=>k.remove(),1000);}
+
+$("icBtn").addEventListener("click",e=>{kere++;guncelle();notGuncelle();
+  const r=e.currentTarget.getBoundingClientRect();kalpEfekti(r.left+r.width/2,r.top);
+  if(kere>=hedef)$("altyazi").textContent="Hedefi tamamladın, harikasın! 🎉🤍";});
+$("geriBtn").addEventListener("click",()=>{kere--;guncelle();});
+$("sifirBtn").addEventListener("click",()=>{kere=0;guncelle();selamGuncelle();});
+
+/* ---------- FOTOĞRAFLAR: sadece telefonda saklanır (localStorage) ---------- */
+function fotolariYukle(){
+  const a=localStorage.getItem("foto_sevgili");
+  const b=localStorage.getItem("foto_ben");
+  if(a){$("avatar").style.backgroundImage="url("+a+")";$("avatar").textContent="";}
+  if(b){$("benFoto").style.backgroundImage="url("+b+")";$("benFoto").firstChild.textContent="";}
+}
+function fotoSec(input,kayitAdi,goster){
+  const f=input.files[0];if(!f)return;
+  const img=new Image();const rd=new FileReader();
+  rd.onload=()=>{img.onload=()=>{
+    // küçült (max 420px) ve telefonda sakla — internete gitmez
+    const max=420;let{width:w,height:h}=img;const r=Math.min(max/w,max/h,1);
+    const c=document.createElement("canvas");c.width=w*r;c.height=h*r;
+    c.getContext("2d").drawImage(img,0,0,c.width,c.height);
+    const data=c.toDataURL("image/jpeg",0.82);
+    try{localStorage.setItem(kayitAdi,data);}catch(e){alert("Fotoğraf çok büyük, daha küçük bir tane dene.");return;}
+    goster(data);
+  };img.src=rd.result;};
+  rd.readAsDataURL(f);
+}
+$("avatarSec").addEventListener("click",()=>$("avatarInput").click());
+$("avatarInput").addEventListener("change",e=>fotoSec(e.target,"foto_sevgili",d=>{
+  $("avatar").style.backgroundImage="url("+d+")";$("avatar").textContent="";}));
+$("benFoto").addEventListener("click",()=>$("benInput").click());
+$("benInput").addEventListener("change",e=>fotoSec(e.target,"foto_ben",d=>{
+  $("benFoto").style.backgroundImage="url("+d+")";$("benFoto").firstChild.textContent="";}));
+
+/* ---------- BİLDİRİM / PUSH ---------- */
+function b64ToUint8(b){const p="=".repeat((4-b.length%4)%4);const s=(b+p).replace(/-/g,"+").replace(/_/g,"/");
+  const raw=atob(s);const a=new Uint8Array(raw.length);for(let i=0;i<raw.length;i++)a[i]=raw.charCodeAt(i);return a;}
+async function bildirimDurumu(){
+  if(!("serviceWorker" in navigator)||!("PushManager" in window)){
+    $("kurulumNot").innerHTML="Bu cihaz push bildirimi desteklemiyor. Safari'de açıp <b>Ana Ekrana Ekle</b> yap.";return;}
+  if(Notification.permission==="granted"){$("kurulum").classList.add("ok");
+    $("kurulum").querySelector("strong").textContent="✅ Bildirimler açık";$("izinBtn").style.display="none";}
+}
+$("izinBtn").addEventListener("click",async()=>{
+  try{const reg=await navigator.serviceWorker.register("sw.js");
+    const izin=await Notification.requestPermission();if(izin!=="granted"){alert("İzin verilmedi 😢");return;}
+    reg.showNotification("Su Vakti 💧",{body:"Bildirimler açıldı! Artık seni hatırlatacağım aşkımm🤍",icon:"icons/icon-192.png"});
+    if(AYARLAR.vapidPublicKey&&!AYARLAR.vapidPublicKey.startsWith("BURAYA")){
+      const sub=await reg.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:b64ToUint8(AYARLAR.vapidPublicKey)});
+      const kod=$("aboneKod");kod.style.display="block";kod.textContent=JSON.stringify(sub);
+      $("kurulumNot").innerHTML="👇 Bu yazının <b>tamamını kopyala</b> ve README'deki gibi <b>subscription.json</b> içine yapıştır.";
+      try{await navigator.clipboard.writeText(JSON.stringify(sub));alert("Abonelik kopyalandı!");}catch(e){}
+    }
+    bildirimDurumu();
+  }catch(err){alert("Hata: "+err.message+"\n(Önce Ana Ekrana Ekle yapman gerekiyor olabilir.)");}
+});
+
+yukle();bildirimDurumu();
+if("serviceWorker" in navigator){navigator.serviceWorker.register("sw.js").catch(()=>{});}
+</script>
+</body>
+</html>
