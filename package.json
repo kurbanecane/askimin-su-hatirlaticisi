@@ -1,0 +1,9 @@
+{
+  "name": "su-hatirlatici-sunucu",
+  "version": "1.0.0",
+  "type": "module",
+  "private": true,
+  "dependencies": {
+    "web-push": "^3.6.7"
+  }
+}
