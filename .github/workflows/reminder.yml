@@ -1,14 +1,9 @@
 name: Su Hatirlatici
 
 on:
-  schedule:
-    # Saatler UTC cinsindendir. Türkiye = UTC+3 (yaz/kış sabit).
-    # Aşağıdaki UTC saatleri Türkiye saatiyle şunlara denk gelir:
-    # 06→09:00, 08→11:00, 10→13:00, 12→15:00, 14→17:00,
-    # 16→19:00, 18→21:00, 20→23:00, 21→00:00 (gece yarısı)
-    # ✏️ DEĞİŞTİR: saatleri değiştirmek istersen Türkiye saatinden 3 saat çıkarıp buraya yaz.
-    - cron: "17 6,8,10,12,14,16,18,20,21 * * *"
-  workflow_dispatch:   # elle test için "Run workflow" butonu
+  # Zamanlama artık cron-job.org tarafından yapılıyor (Europe/Istanbul, her gün 09-23 arası 2 saatte bir).
+  # cron-job.org bu workflow'u GitHub API üzerinden workflow_dispatch ile tetikliyor.
+  workflow_dispatch:
 
 jobs:
   hatirlat:
