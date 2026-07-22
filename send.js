@@ -8,11 +8,11 @@ import fs from "fs";
    ✏️ DEĞİŞTİR: Bildirim mesajları (rastgele biri gönderilir)
    ============================================================ */
 const MESAJLAR = [
-  { title: "Su Vakti 💧", body: "Aşkım, bir bardak su içmeyi unutma 🤍" },
-  { title: "Susadın mı? 🩵", body: "Hadi biraz su iç bitanem 💙" },
-  { title: "Minik hatırlatma 💕", body: "Seni çok seviyorumm ✨" }, 
-  { title: "Hey güzelim 🌸", body: "Sağlığın için bir bardak su zamanı bebeğim💧" },
-  { title: "Seni düşünüyorum 🤍", body: "Bu arada... su içtin mi? 😊" }
+  { title: "Su Vakti 💧", body: "Bir bardak su içmeyi unutma" },
+  { title: "Susadın mı? ", body: "Hadi biraz su iç" },
+  { title: "Minik hatırlatma ", body: "Su iç lütfen" }, 
+  { title: "Hey !", body: "Sağlığın için bir bardak su zamanı" },
+  { title: "Aklıma geldi de ", body: "Bu arada... su içtin mi?" }
 ];
 
 // ✏️ DEĞİŞTİR (opsiyonel): Bildirimde büyük fotoğraf göstermek istersen
