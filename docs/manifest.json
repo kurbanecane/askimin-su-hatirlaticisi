@@ -1,7 +1,7 @@
 {
-  "name": "Aşkımın Su Hatırlatıcısı 💧",
-  "short_name": "Aşkımın Su Hatırlatıcısı",
-  "description": "Aşkıma özel su hatırlatıcısı 🤍",
+  "name": "Şahsi Su Hatırlatıcısı 💧",
+  "short_name": "Şahsi Su Hatırlatıcısı",
+  "description": "Özel su hatırlatıcısı 🤍",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
