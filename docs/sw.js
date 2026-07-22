@@ -6,7 +6,7 @@ self.addEventListener("activate", e => e.waitUntil(self.clients.claim()));
 
 // Sunucudan push geldiğinde
 self.addEventListener("push", event => {
-  let data = { title: "Su Vaktiii 💧", body: "Bir bardak su içmeyi unutma aşkımm🤍" };
+  let data = { title: "Su Vakti 💧", body: "Bir bardak su içmeyi unutma lütfen 💧" };
   try { if (event.data) data = { ...data, ...event.data.json() }; } catch (e) {}
 
   const options = {
